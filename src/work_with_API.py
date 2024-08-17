@@ -38,8 +38,6 @@ class HeadHunter(GetAPI):
 
 
 if __name__ == "__main__":
-
     head = HeadHunter()
-    print(head.get_info())
-    # print(head.get_vacancies("курьер"))
+    get = head.get_info()
 

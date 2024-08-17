@@ -1,20 +1,25 @@
+from src.work_with_API import HeadHunter
+
+
 class Vacancies:
     """ Класс для работы с вакансиями. Включает в себя сортировку необходимых данных из списка словарей
                         и добавления их в список, а также сравнение двух вакансий по ЗП """
 
     # __slots__ = ("name", "description", "salary_from", "salary_to" "url")
 
-    def __init__(self, name: str, description: str, url: str, salary_from: None = "ЗП не указана",
-                 salary_to: None = "ЗП не указана"):
+    def __init__(self, name: str, description: str, url: str, salary_from=None,
+                 salary_to=None):
         self.name = name
         self.description = description
         self.url = url
-        self.salary_from = salary_from
-        if salary_from == 0:
-            self.salary_from = "ЗП не указанна"
-        self.salary_to = salary_to
-        if salary_to == 0:
-            self.salary_to = "ЗП не указанна"
+        if salary_from:
+            self.salary_from = salary_from
+        else:
+            self.salary_from = 0
+        if salary_to:
+            self.salary_to = salary_to
+        else:
+            self.salary_to = 0
 
     @classmethod
     def cast_to_object_list(cls, info: list):
@@ -27,14 +32,13 @@ class Vacancies:
             description = i["snippet"]["responsibility"]
             salary_from = i["salary"]["from"]
             salary_to = i["salary"]["to"]
-            # price = f"{i["salary"]["from"]} - {i["salary"]["to"]}"
             url = i["area"]["url"]
 
             vacancy = cls(name=name, description=description, salary_from=salary_from, salary_to=salary_to, url=url)
 
             list_vacancies.append(vacancy)
 
-            return list_vacancies
+        return list_vacancies
 
     def __lt__(self, other):
         """ Метод сравнение ЗП двух вакансий """
@@ -46,10 +50,14 @@ class Vacancies:
 
 
 if __name__ == "__main__":
+    head = HeadHunter()
+    info = head.get_info()
+    vacancies = Vacancies.cast_to_object_list(info)
+
     answer = [{'id': '105832314', 'premium': False, 'name': 'Курьер - Сборщик', 'department': None, 'has_test': False,
                'response_letter_required': False,
                'area': {'id': '47', 'name': 'Кемерово', 'url': 'https://api.hh.ru/areas/47'},
-               'salary': {'from': 69600, 'to': 128750, 'currency': 'RUR', 'gross': False},
+               'salary': {'from': 0, 'to': None, 'currency': 'RUR', 'gross': False},
                'type': {'id': 'open', 'name': 'Открытая'}, 'address': None, 'response_url': None,
                'sort_point_distance': None, 'published_at': '2024-08-15T09:04:14+0300',
                'created_at': '2024-08-15T09:04:14+0300', 'archived': False,
@@ -79,9 +87,11 @@ if __name__ == "__main__":
                'employment': {'id': 'part', 'name': 'Частичная занятость'}, 'adv_response_url': None,
                'is_adv_vacancy': False, 'adv_context': None}]
 
-    head = Vacancies("Курьер", "длялялляля", "aSSASASD", 1, 50000)
-    head_1 = Vacancies("Курьер", "длялялляля", "ASDSADADSA", 0, 100000)
-    print(head_1.salary_from)
-    print(head.salary_from)
-    # head = Vacancies.cast_to_object_list(answer)
-    print(head.__lt__(head_1))
+
+    def top_vacancies(vacancies: list, value) -> list:
+        sort_list = sorted(vacancies, key=lambda x: x.salary_from, reverse=True)
+        return sort_list[0:value]
+
+
+    print(top_vacancies(vacancies, 2)[0].salary_from)
+    print(top_vacancies(vacancies, 2)[1].salary_from)
