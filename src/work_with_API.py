@@ -20,7 +20,7 @@ class HeadHunter(GetAPI):
 
         else:
             response = requests.get(self.__url, self.__params)
-            return response.json()["items"][0]
+            return response.json()["items"]
 
     def get_vacancies(self, vacancies: str = None) -> list:
         """ Метод получающий информацию по заданной вакансии, в противном случае выводит все вакансии """
