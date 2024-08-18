@@ -5,33 +5,38 @@ class Vacancies:
     """ Класс для работы с вакансиями. Включает в себя сортировку необходимых данных из списка словарей
                         и добавления их в список, а также сравнение двух вакансий по ЗП """
 
-    # __slots__ = ("name", "description", "salary_from", "salary_to" "url")
-
-    def __init__(self, name: str, description: str, url: str, salary_from=None,
-                 salary_to=None):
+    def __init__(self, name: str, description: str, url: str, salary_from,
+                 salary_to):
         self.name = name
         self.description = description
         self.url = url
-        if salary_from:
+        if isinstance(salary_from, int):
             self.salary_from = salary_from
         else:
             self.salary_from = 0
-        if salary_to:
+        if isinstance(salary_to, int):
             self.salary_to = salary_to
         else:
             self.salary_to = 0
 
     @classmethod
-    def cast_to_object_list(cls, info: list):
+    def cast_to_object_list(cls, info_list: list):
         """ Класс метод принимает список словарей с вакансиями, отбирает необходимы данные
-                                и добавляет классовым обектом в список """
+                                и добавляет классовым объектом в список """
 
         list_vacancies = []
-        for i in info:
+        for i in info_list:
             name = i["name"]
             description = i["snippet"]["responsibility"]
-            salary_from = i["salary"]["from"]
-            salary_to = i["salary"]["to"]
+            if i["salary"]:
+                if i["salary"]["from"]:
+                    salary_from = i["salary"]["from"]
+                else:
+                    salary_from = 0
+                if i["salary"]["to"]:
+                    salary_to = i["salary"]["to"]
+                else:
+                    salary_to = 0
             url = i["area"]["url"]
 
             vacancy = cls(name=name, description=description, salary_from=salary_from, salary_to=salary_to, url=url)
@@ -43,15 +48,12 @@ class Vacancies:
     def __lt__(self, other):
         """ Метод сравнение ЗП двух вакансий """
 
-        if isinstance(self.salary_from, str) or isinstance(other.salary_from, str):
-            return "В одной из вакансий не указанна ЗП, сравнение невозможно."
-
         return self.salary_from > other.salary_from
 
 
 if __name__ == "__main__":
     head = HeadHunter()
-    info = head.get_info()
+    info = head.get_vacancies("Повар")
     vacancies = Vacancies.cast_to_object_list(info)
 
     answer = [{'id': '105832314', 'premium': False, 'name': 'Курьер - Сборщик', 'department': None, 'has_test': False,
@@ -87,11 +89,5 @@ if __name__ == "__main__":
                'employment': {'id': 'part', 'name': 'Частичная занятость'}, 'adv_response_url': None,
                'is_adv_vacancy': False, 'adv_context': None}]
 
-
-    def top_vacancies(vacancies: list, value) -> list:
-        sort_list = sorted(vacancies, key=lambda x: x.salary_from, reverse=True)
-        return sort_list[0:value]
-
-
-    print(top_vacancies(vacancies, 2)[0].salary_from)
-    print(top_vacancies(vacancies, 2)[1].salary_from)
+    vacans = Vacancies("Курьер", "досиавка", "фывфвфвфвф", 100000, 2000000)
+    print(vacans)
