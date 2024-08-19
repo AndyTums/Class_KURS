@@ -1,5 +1,3 @@
-from src.work_with_API import HeadHunter
-from src.work_with_vacancies import Vacancies
 import re
 
 
@@ -46,15 +44,3 @@ def work_with_user(list_vacancies: list):
                 f"Название вакансии: {vac.name}\nОписание: {vac.description}\nСсылка на вакансию: {vac.url}\n"
                 f"Зарплата: {vac.salary_from} - {vac.salary_to}\n")
             print(second)
-
-
-if __name__ == "__main__":
-    head = HeadHunter()
-    infor = head.get_info()
-    to_vac = Vacancies.cast_to_object_list(infor)
-
-    filterss = filter_words(to_vac, "гот")
-    print(filterss)
-
-    # print(to_vac[0].description)
-    # print(type(to_vac[0].description))

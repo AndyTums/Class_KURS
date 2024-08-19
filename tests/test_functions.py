@@ -1,5 +1,3 @@
-import pytest
-
 from src.functions import top_vacancies, filter_words, sorting_of_salary, work_with_user
 
 
@@ -17,11 +15,16 @@ def test_sorting_of_salary(list_of_vacancies):
     assert len(sorting_of_salary(list_of_vacancies, 90000, 100000)) == 0
 
 
-def test_wor_with_user(capsys, third_vacancy):
-    assert work_with_user([third_vacancy]) == None
+def test_work_with_user(capsys, third_vacancy):
+    work_with_user([third_vacancy])
 
-    # massage = capsys.readouterr()
-    # assert massage.out.strip(work_with_user([third_vacancy])) == ("Название вакансии: Уборщик Описание: Убирать дом"
-    #                                                               "Ссылка на вакансию: http:/www.cleaner.ru"
-    #                                                               "Зарплата: 50000")
-    # pass
+    captured = capsys.readouterr()
+
+    expected_output = ('Название вакансии: Уборщик\n'
+                       'Описание: Убирать дом\n'
+                       'Ссылка на вакансию: http://www.cleaner.ru\n'
+                       'Зарплата: 50000\n'
+                       '\n').strip()
+
+    # Проверка соответствия захваченного вывода и ожидаемого результата
+    assert captured.out.strip() == expected_output

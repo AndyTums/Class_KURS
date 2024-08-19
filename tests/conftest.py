@@ -8,7 +8,7 @@ def info_api():
     return [{'id': '105832314', 'premium': False, 'name': 'Курьер - Сборщик', 'department': None, 'has_test': False,
              'response_letter_required': False,
              'area': {'id': '47', 'name': 'Кемерово', 'url': 'https://api.hh.ru/areas/47'},
-             'salary': {'from': 0, 'to': None, 'currency': 'RUR', 'gross': False},
+             'salary': {'from': 10000, 'to': 50000, 'currency': 'RUR', 'gross': False},
              'type': {'id': 'open', 'name': 'Открытая'}, 'address': None, 'response_url': None,
              'sort_point_distance': None, 'published_at': '2024-08-15T09:04:14+0300',
              'created_at': '2024-08-15T09:04:14+0300', 'archived': False,
@@ -25,8 +25,11 @@ def info_api():
                                         'original': 'https://img.hhcdn.ru/employer-logo-original/1244969.png'},
                           'vacancies_url': 'https://api.hh.ru/vacancies?employer_id=8639172',
                           'accredited_it_employer': False, 'trusted': True}, 'snippet': {
-            'requirement': 'Готовы работать и учиться новому. Ответственны, пунктуальны и доброжелательны. Желание работать и зарабатывать. Ответственность и пунктуальность. Опыт работы в логистических...',
-            'responsibility': 'Доставлять - собирать заказы от интернет-магазинов. Использовать мобильное приложение для получения заказов и информации о маршруте или составе заказа.'},
+            'requirement': 'Готовы работать и учиться новому. Ответственны, пунктуальны и доброжелательны. '
+                           'Желание работать и зарабатывать. Ответственность и пунктуальность. '
+                           'Опыт работы в логистических...',
+            'responsibility': 'Доставлять - собирать заказы от интернет-магазинов. Использовать '
+                        'мобильное приложение для получения заказов и информации о маршруте или составе заказа.'},
              'contacts': None, 'schedule': {'id': 'flexible', 'name': 'Гибкий график'},
              'working_days': [{'id': 'only_saturday_and_sunday', 'name': 'Работа только по\xa0сб\xa0и\xa0вс'}],
              'working_time_intervals': [

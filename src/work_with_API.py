@@ -35,10 +35,3 @@ class HeadHunter(GetAPI):
                 return response.json()["items"]
             else:
                 return HeadHunter.get_info(self)
-
-
-if __name__ == "__main__":
-    head = HeadHunter()
-    get = head.get_info()
-    print(get[0])
-

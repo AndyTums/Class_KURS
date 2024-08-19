@@ -2,8 +2,6 @@ import json
 import os
 
 from src.abstract_classes import WorkJSON
-from src.work_with_API import HeadHunter
-from src.work_with_vacancies import Vacancies
 
 
 class JSONSaver(WorkJSON):
@@ -44,17 +42,3 @@ class JSONSaver(WorkJSON):
     def del_from_file(self):
         """ Метод удаления информации из файла """
         pass
-
-
-if __name__ == "__main__":
-    head = HeadHunter()
-    work = HeadHunter.get_info(head)
-
-    json_saver = JSONSaver()
-    wr = json_saver.add_in_file(work)
-    red = json_saver.read_file()
-    # print(wr)
-    print(red)
-
-    # json_saver.add_in_file(work)
-    # json_saver.delete_vacancy(vacancy)
