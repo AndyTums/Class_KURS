@@ -1,6 +1,6 @@
 import re
 
-from src.utils import top_vacancies, filter_words, sorting_of_salary, work_with_user
+from src.functions import top_vacancies, filter_words, sorting_of_salary, work_with_user
 from src.work_with_API import HeadHunter
 from src.work_with_vacancies import Vacancies
 
@@ -23,7 +23,7 @@ def main():
     result_top_n = top_vacancies(to_vacancies, top_n)
 
     # Фильтруем вакансии по заданному слову в описании
-    filter_word = input("Введите слово интересующее Вас связанное с вакансией: ")
+    filter_word = input("Введите слово интересующее Вас связанное с вакансией: ").replace(" ", "").lower()
     result_filter_words = filter_words(result_top_n, filter_word)
 
     # Сортируем по заданному диапазону цен

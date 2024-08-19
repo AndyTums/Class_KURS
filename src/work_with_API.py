@@ -40,4 +40,5 @@ class HeadHunter(GetAPI):
 if __name__ == "__main__":
     head = HeadHunter()
     get = head.get_info()
+    print(get[0])
 
